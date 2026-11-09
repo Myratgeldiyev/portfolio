@@ -2,13 +2,17 @@ import { Tag } from '@/components/ui'
 import type { Project } from '@/content/profile'
 import { cn } from '@/lib/utils'
 import { ArrowUpRight, Lock } from 'lucide-react'
+import type { ComponentProps } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 /** Screenshot if we have one, otherwise a typographic cover. */
 export function ProjectCover({ project, className, priority }: { project: Project; className?: string; priority?: boolean }) {
 	return (
-		<div className={cn('relative aspect-[16/10] overflow-hidden rounded-xl border bg-subtle', className)}>
+		<div className={cn(
+				'relative aspect-[16/10] overflow-hidden rounded-xl border bg-subtle transition-[translate,box-shadow] duration-500 ease-out group-hover:-translate-y-1 group-hover:shadow-[0_18px_40px_-20px_rgb(0_0_0/0.35)]',
+				className,
+			)}>
 			{project.image ? (
 				<Image
 					src={project.image}
@@ -39,9 +43,9 @@ export function ProjectCover({ project, className, priority }: { project: Projec
 	)
 }
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project, className, ...props }: { project: Project } & ComponentProps<'article'>) {
 	return (
-		<article className='group relative'>
+		<article className={cn('group relative', className)} {...props}>
 			<Link href={`/projects/${project.slug}`} className='block'>
 				<ProjectCover project={project} />
 				<div className='mt-4 flex items-start justify-between gap-4'>

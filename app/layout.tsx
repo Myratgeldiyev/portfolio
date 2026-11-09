@@ -1,4 +1,5 @@
 import { SiteFooter } from '@/components/site-footer'
+import { ScrollReveal } from '@/components/scroll-reveal'
 import { SiteHeader } from '@/components/site-header'
 import { ThemeProvider } from '@/components/theme'
 import { profile } from '@/content/profile'
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 						Skip to content
 					</a>
 					<SiteHeader />
+					<ScrollReveal />
 					<main id='main' className='flex-1'>
 						{children}
 					</main>

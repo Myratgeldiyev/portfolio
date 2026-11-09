@@ -3,6 +3,7 @@ import { socialIcons } from '@/components/icons'
 import { ProjectCard } from '@/components/project-card'
 import { ButtonLink, Section, Tag } from '@/components/ui'
 import { education, experience, profile, projects } from '@/content/profile'
+import { reveal } from '@/lib/reveal'
 import { Download, Mail, MapPin } from 'lucide-react'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
@@ -63,13 +64,15 @@ export default function HomePage() {
 			{/* About */}
 			<Section id='about' label='01 — About' title='A bit about me'>
 				<div className='space-y-4 leading-relaxed text-pretty'>
-					{profile.about.map(p => (
-						<p key={p.slice(0, 24)}>{p}</p>
+					{profile.about.map((p, i) => (
+						<p key={p.slice(0, 24)} {...reveal(i)}>
+							{p}
+						</p>
 					))}
 				</div>
 				<dl className='mt-10 grid gap-6 sm:grid-cols-2'>
-					{Object.entries(profile.skills).map(([group, items]) => (
-						<div key={group}>
+					{Object.entries(profile.skills).map(([group, items], i) => (
+						<div key={group} {...reveal(i % 2)}>
 							<dt className='mb-2 font-mono text-xs uppercase tracking-wider text-muted'>{group}</dt>
 							<dd className='flex flex-wrap gap-1.5'>
 								{items.map(s => (
@@ -85,7 +88,7 @@ export default function HomePage() {
 			<Section id='experience' label='02 — Experience' title='Where I have worked'>
 				<ol className='space-y-10'>
 					{experience.map(item => (
-						<li key={`${item.company}-${item.period}`} className='grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-6'>
+						<li key={`${item.company}-${item.period}`} {...reveal()} className='grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-6'>
 							<p className='pt-0.5 font-mono text-xs text-muted'>{item.period}</p>
 							<div>
 								<h3 className='font-medium'>
@@ -109,10 +112,12 @@ export default function HomePage() {
 					))}
 				</ol>
 
-				<h3 className='mb-6 mt-16 font-mono text-xs uppercase tracking-[0.2em] text-muted'>Education</h3>
+				<h3 {...reveal()} className='mb-6 mt-16 font-mono text-xs uppercase tracking-[0.2em] text-muted'>
+					Education
+				</h3>
 				<ol className='space-y-8'>
 					{education.map(item => (
-						<li key={item.school} className='grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-6'>
+						<li key={item.school} {...reveal()} className='grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-6'>
 							<p className='pt-0.5 font-mono text-xs text-muted'>{item.period}</p>
 							<div>
 								<p className='font-medium'>
@@ -135,16 +140,18 @@ export default function HomePage() {
 			{/* Projects */}
 			<Section id='projects' label='03 — Projects' title='Selected work'>
 				<div className='grid gap-12 sm:grid-cols-2 sm:gap-x-8'>
-					{featured.map(p => (
-						<ProjectCard key={p.slug} project={p} />
+					{featured.map((p, i) => (
+						<ProjectCard key={p.slug} project={p} {...reveal(i % 2)} />
 					))}
 				</div>
 				{others.length > 0 && (
 					<>
-						<h3 className='mb-6 mt-16 font-mono text-xs uppercase tracking-[0.2em] text-muted'>More projects</h3>
+						<h3 {...reveal()} className='mb-6 mt-16 font-mono text-xs uppercase tracking-[0.2em] text-muted'>
+							More projects
+						</h3>
 						<div className='grid gap-12 sm:grid-cols-2 sm:gap-x-8'>
-							{others.map(p => (
-								<ProjectCard key={p.slug} project={p} />
+							{others.map((p, i) => (
+								<ProjectCard key={p.slug} project={p} {...reveal(i % 2)} />
 							))}
 						</div>
 					</>
@@ -154,7 +161,7 @@ export default function HomePage() {
 			{/* Contact */}
 			<Section id='contact' label='04 — Contact' title="Let's work together">
 				<div className='grid gap-10 sm:grid-cols-[1fr_1.6fr]'>
-					<div className='space-y-4 text-sm'>
+					<div {...reveal()} className='space-y-4 text-sm'>
 						<p className='leading-relaxed text-muted'>
 							Have a role, a project or just a question? Send a message and it lands straight in my inbox.
 						</p>
@@ -167,7 +174,9 @@ export default function HomePage() {
 							{profile.location}
 						</p>
 					</div>
-					<ContactForm />
+					<div {...reveal(1)}>
+						<ContactForm />
+					</div>
 				</div>
 			</Section>
 		</div>

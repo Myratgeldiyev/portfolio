@@ -2,6 +2,7 @@ import { GitHubIcon } from '@/components/icons'
 import { ProjectCover } from '@/components/project-card'
 import { ButtonLink, Tag } from '@/components/ui'
 import { getProject, projects } from '@/content/profile'
+import { reveal } from '@/lib/reveal'
 import { ArrowLeft, ArrowUpRight, Lock } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -71,7 +72,7 @@ export default async function ProjectPage({ params }: Props) {
 			<ProjectCover project={project} priority className='reveal mt-10 [animation-delay:100ms]' />
 
 			<div className='mt-12 grid gap-10 sm:grid-cols-[1fr_12rem]'>
-				<div>
+				<div {...reveal()}>
 					<h2 className='font-mono text-xs uppercase tracking-[0.2em] text-accent'>Overview</h2>
 					<p className='mt-4 leading-relaxed text-pretty'>{project.description}</p>
 
@@ -87,7 +88,7 @@ export default async function ProjectPage({ params }: Props) {
 						))}
 					</ul>
 				</div>
-				<aside className='space-y-6 text-sm'>
+				<aside {...reveal(1)} className='space-y-6 text-sm'>
 					<div>
 						<h2 className='mb-2 font-mono text-xs uppercase tracking-wider text-muted'>Role</h2>
 						<p>{project.role}</p>
@@ -106,7 +107,7 @@ export default async function ProjectPage({ params }: Props) {
 			</div>
 
 			{next && next.slug !== project.slug && (
-				<nav aria-label='Next project' className='mt-20 border-t pt-8'>
+				<nav {...reveal()} aria-label='Next project' className='mt-20 border-t pt-8'>
 					<Link href={`/projects/${next.slug}`} className='group flex items-center justify-between'>
 						<span>
 							<span className='block font-mono text-xs text-muted'>Next project</span>

@@ -1,3 +1,4 @@
+import { reveal } from '@/lib/reveal'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import type { ComponentProps, ReactNode } from 'react'
@@ -16,9 +17,9 @@ export function Section({
 	className?: string
 }) {
 	return (
-		<section id={id} aria-labelledby={`${id}-title`} className={cn('reveal-on-scroll py-16 sm:py-20', className)}>
-			<p className='mb-2 font-mono text-xs uppercase tracking-[0.2em] text-accent'>{label}</p>
-			<h2 id={`${id}-title`} className='mb-10 text-2xl font-semibold tracking-tight sm:text-3xl'>
+		<section id={id} aria-labelledby={`${id}-title`} className={cn('py-16 sm:py-20', className)}>
+			<p {...reveal()} className='mb-2 font-mono text-xs uppercase tracking-[0.2em] text-accent'>{label}</p>
+			<h2 {...reveal(1)} id={`${id}-title`} className='mb-10 text-2xl font-semibold tracking-tight sm:text-3xl'>
 				{title}
 			</h2>
 			{children}

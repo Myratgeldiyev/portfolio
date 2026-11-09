@@ -67,27 +67,42 @@
 	}
 }
 
-/* Fade-up on first paint, and on scroll where the browser supports it. */
+/* Motion: hero fades up on load, everything marked [data-reveal] fades up on scroll. */
+:root {
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @keyframes fade-up {
 	from {
 		opacity: 0;
-		transform: translateY(12px);
+		transform: translateY(20px);
+		filter: blur(6px);
 	}
 	to {
 		opacity: 1;
 		transform: none;
+		filter: none;
 	}
 }
 
 .reveal {
-	animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	animation: fade-up 0.9s var(--ease-out) both;
 }
 
-@supports (animation-timeline: view()) {
-	.reveal-on-scroll {
-		animation: fade-up linear both;
-		animation-timeline: view();
-		animation-range: entry 0% entry 40%;
+[data-reveal] {
+	transition:
+		opacity 0.9s var(--ease-out),
+		transform 0.9s var(--ease-out),
+		filter 0.9s var(--ease-out);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Hide only when JavaScript can reveal it again, so content never stays invisible. */
+@media (scripting: enabled) {
+	[data-reveal]:not([data-revealed]) {
+		opacity: 0;
+		transform: translateY(28px);
+		filter: blur(6px);
 	}
 }
 
@@ -95,8 +110,13 @@
 	html {
 		scroll-behavior: auto;
 	}
-	.reveal,
-	.reveal-on-scroll {
+	.reveal {
 		animation: none;
+	}
+	[data-reveal] {
+		transition: none;
+		opacity: 1 !important;
+		transform: none !important;
+		filter: none !important;
 	}
 }
