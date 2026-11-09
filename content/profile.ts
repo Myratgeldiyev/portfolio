@@ -56,10 +56,11 @@ export const profile = {
 		'I care about clean, typed code, interfaces that feel fast, and shipping things that real people use. I speak Turkmen, Russian, English and Chinese (HSK 4).',
 	],
 	skills: {
-		Frontend: ['TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+		Languages: ['TypeScript', 'JavaScript', 'Java', 'C'],
+		Frontend: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
 		Backend: ['Node.js', 'NestJS', 'Spring Boot', 'REST APIs', 'Zod'],
 		Data: ['PostgreSQL', 'MySQL', 'Drizzle ORM', 'Supabase', 'Firebase'],
-		Mobile: ['React Native / Expo', 'Android (Java)'],
+		Mobile: ['React Native / Expo', 'Android'],
 		Tooling: ['Git', 'Docker', 'GitHub Actions', 'Railway', 'Vercel'],
 	} as Record<string, string[]>,
 	cvUrl: '/cv.pdf',
