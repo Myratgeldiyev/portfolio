@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 	const result = await handleContact(
 		input,
 		{ ipHash: hashIp(clientIp(request.headers)), userAgent: request.headers.get('user-agent')?.slice(0, 300) ?? null },
-		{ store: dbContactStore, mailer: createResendMailer() },
+		{ store: process.env.DATABASE_URL ? dbContactStore : null, mailer: createResendMailer() },
 	)
 
 	return NextResponse.json(result.body, { status: result.status })

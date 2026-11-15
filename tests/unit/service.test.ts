@@ -73,6 +73,24 @@ describe('handleContact', () => {
 		expect(log.error).toHaveBeenCalled()
 	})
 
+	it('emails the message when there is no database', async () => {
+		const mailer: Mailer = { send: vi.fn().mockResolvedValue(undefined) }
+		const res = await handleContact(valid, ctx, { store: null, mailer, log: silent })
+		expect(res.status).toBe(200)
+		expect(mailer.send).toHaveBeenCalledWith(expect.objectContaining(valid))
+	})
+
+	it('returns 500 without a database when the email fails', async () => {
+		const mailer: Mailer = { send: vi.fn().mockRejectedValue(new Error('down')) }
+		const res = await handleContact(valid, ctx, { store: null, mailer, log: silent })
+		expect(res.status).toBe(500)
+	})
+
+	it('returns 500 when neither a database nor a mailer is configured', async () => {
+		const res = await handleContact(valid, ctx, { store: null, mailer: null, log: silent })
+		expect(res.status).toBe(500)
+	})
+
 	it('returns 500 when the database fails', async () => {
 		const store: ContactStore = { countSince: vi.fn().mockRejectedValue(new Error('db down')), insert: vi.fn() }
 		const res = await handleContact(valid, ctx, { store, mailer: null, log: silent })
