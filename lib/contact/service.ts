@@ -14,7 +14,8 @@ export interface Mailer {
 }
 
 export type ContactDeps = {
-	store: ContactStore
+	/** null when DATABASE_URL is unset: messages are emailed only and not rate limited. */
+	store: ContactStore | null
 	mailer: Mailer | null
 	now?: () => Date
 	log?: Pick<Console, 'error' | 'warn'>
@@ -43,6 +44,22 @@ export async function handleContact(
 
 	const { name, email, message } = parsed.data
 	const record: StoredMessage = { name, email, message, ipHash: ctx.ipHash, userAgent: ctx.userAgent }
+	const failed = { status: 500, body: { error: 'Could not send your message. Please email me directly.' } } as const
+
+	// Without a database the email is the only copy, so it has to succeed.
+	if (!deps.store) {
+		if (!deps.mailer) {
+			log.error('[contact] neither DATABASE_URL nor RESEND_API_KEY is set')
+			return failed
+		}
+		try {
+			await deps.mailer.send(record)
+		} catch (err) {
+			log.error('[contact] failed to send email', err)
+			return failed
+		}
+		return { status: 200, body: { ok: true } }
+	}
 
 	try {
 		const now = deps.now?.() ?? new Date()
@@ -53,7 +70,7 @@ export async function handleContact(
 		await deps.store.insert(record)
 	} catch (err) {
 		log.error('[contact] failed to store message', err)
-		return { status: 500, body: { error: 'Could not send your message. Please email me directly.' } }
+		return failed
 	}
 
 	// The message is safely stored; a failed notification shouldn't fail the request.
