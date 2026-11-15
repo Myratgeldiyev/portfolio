@@ -1,7 +1,5 @@
 /**
  * All site content lives here. Edit this file to update the portfolio.
- * Entries marked `TODO` still hold placeholder text and should be replaced
- * with real information.
  */
 
 export type Social = {
@@ -50,7 +48,6 @@ export const profile = {
 	email: 'deluxlos06@gmail.com',
 	headline:
 		'I build web and mobile products end to end — from typed APIs and databases to interfaces people enjoy using.',
-	// TODO: rewrite in your own words.
 	about: [
 		'I am a software engineer from Turkmenistan, studying Computer Science at Hangzhou Normal University. I started with frontend work in React and Next.js and have since moved across the stack: NestJS and Spring Boot APIs, PostgreSQL and MySQL databases, and native Android and React Native apps.',
 		'I care about clean, typed code, interfaces that feel fast, and shipping things that real people use. I speak Turkmen, Russian, English and Chinese (HSK 4).',
@@ -66,9 +63,8 @@ export const profile = {
 	cvUrl: '/cv.pdf',
 	socials: [
 		{ label: 'GitHub', href: 'https://github.com/Myratgeldiyev' },
-		// TODO: add your LinkedIn and Telegram links (empty links are hidden).
-		{ label: 'LinkedIn', href: '' },
-		{ label: 'Telegram', href: '' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/yunus-myratgeldiyev-596706380' },
+		{ label: 'Telegram', href: 'https://t.me/myratgeldiyev' },
 	] satisfies Social[],
 }
 
@@ -77,7 +73,6 @@ export const experience: Experience[] = [
 		role: 'Freelance Software Engineer',
 		company: 'Self-employed',
 		period: 'Dec 2024 — Present',
-		// TODO: replace with real clients and results.
 		summary:
 			'Building websites and web apps for clients, from landing pages to full-stack platforms.',
 		highlights: [
@@ -87,20 +82,22 @@ export const experience: Experience[] = [
 	},
 	{
 		role: 'Frontend Developer',
-		company: 'Galkyn', // TODO: confirm company name
+		company: 'Galkyn',
 		period: 'Jun 2024 — Nov 2024',
-		// TODO: replace with what you actually built there.
 		summary:
-			'Developed responsive web applications and new product features together with designers.',
-		highlights: ['TODO: add a concrete achievement', 'TODO: add a concrete achievement'],
+			'Built Yolugry, a web app for taxi drivers, and shipped new product features together with designers.',
+		highlights: [
+			'Developed the Yolugry web app for taxi drivers with Next.js and TypeScript',
+			'Added real-time updates over WebSockets and phone sign-in with Firebase',
+		],
 	},
 	{
 		role: 'Frontend Intern',
-		company: 'TODO: company name',
+		company: 'Bilimli',
 		period: 'Dec 2023 — May 2024',
-		// TODO: replace with what you actually did.
-		summary: 'Built UI components with React, Next.js and TypeScript.',
-		highlights: ['TODO: add a concrete achievement'],
+		summary:
+			"Built the frontend UI of Bilimli, a startup's online courses platform, with React, Next.js and TypeScript.",
+		highlights: ['Wrote the frontend UI for the Bilimli online courses website'],
 	},
 ]
 
@@ -161,10 +158,9 @@ export const projects: Project[] = [
 	{
 		slug: 'yolugry',
 		title: 'Yolugry',
-		tagline: 'Production web app with real-time features',
-		// TODO: describe what Yolugry does and what you built.
+		tagline: 'Web app for taxi drivers',
 		description:
-			'A production Next.js application with multi-language support, real-time updates over WebSockets, Firebase integration and error monitoring with Sentry, shipped with Docker.',
+			'A production Next.js web app for taxi drivers with multi-language support, real-time updates over WebSockets, Firebase integration and error monitoring with Sentry, shipped with Docker.',
 		year: '2024',
 		role: 'Frontend developer',
 		stack: ['Next.js', 'TypeScript', 'next-intl', 'Zustand', 'SWR', 'WebSocket', 'Firebase', 'Sentry', 'Docker'],
@@ -181,7 +177,6 @@ export const projects: Project[] = [
 		slug: 'haka-livestream',
 		title: 'Haka Live',
 		tagline: 'Live streaming mobile app built with React Native',
-		// TODO: confirm features.
 		description:
 			'A cross-platform live streaming app built with Expo and React Native. Users sign in with Google, watch and host live streams powered by Agora, and interact through animated gifts.',
 		year: '2026',
